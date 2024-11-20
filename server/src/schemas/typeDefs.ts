@@ -43,3 +43,6 @@ export const typeDefs = gql`
         link: String
     }
 `;
+
+
+export default typeDefs;
