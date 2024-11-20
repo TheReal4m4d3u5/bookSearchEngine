@@ -1,4 +1,4 @@
-import  User  from '../models/User';
+import  User  from '../models/User.js';
 import { AuthenticationError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
 const secret = process.env.JWT_SECRET || 'yourSecretKey';
