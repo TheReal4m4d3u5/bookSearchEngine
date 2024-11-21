@@ -16,19 +16,4 @@ export default defineConfig({
       },
     },
   },
-  resolve: {
-    alias: {
-      // Add alias for Bootstrap CSS resolution
-      'bootstrap/dist/css/bootstrap.min.css': path.resolve(
-        __dirname,
-        'node_modules/bootstrap/dist/css/bootstrap.min.css'
-      ),
-    },
-  },
-  build: {
-    rollupOptions: {
-      // Mark the CSS as external to avoid resolution issues
-      external: ['bootstrap/dist/css/bootstrap.min.css'],
-    },
-  },
 });
