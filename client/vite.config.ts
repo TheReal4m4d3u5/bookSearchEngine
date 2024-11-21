@@ -9,26 +9,11 @@ export default defineConfig({
     port: 3000,
     open: true,
     proxy: {
-      '/api': {
+      '/graphql': {
         target: 'http://localhost:3001',
         secure: false,
         changeOrigin: true,
       },
-    },
-  },
-  resolve: {
-    alias: {
-      // Add alias for Bootstrap CSS resolution
-      'bootstrap/dist/css/bootstrap.min.css': path.resolve(
-        __dirname,
-        'node_modules/bootstrap/dist/css/bootstrap.min.css'
-      ),
-    },
-  },
-  build: {
-    rollupOptions: {
-      // Mark the CSS as external to avoid resolution issues
-      external: ['/bootstrap/dist/css/bootstrap.min.css'],
     },
   },
 });
