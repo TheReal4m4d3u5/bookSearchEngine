@@ -12,7 +12,7 @@ export const getMe = (token: string) => {
 };
 
 export const createUser = (userData: User) => {
-  return fetch('/api/users', {
+  return fetch('https://booksearchengine-5ikq.onrender.com/api/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
