@@ -46,6 +46,9 @@ export const resolvers = {
             return { token, user };
         },
         addUser: async (_: any, args: AddUserArgs) => {
+
+            console.log("args: " + args);
+
             const user = await User.create(args);
             const token = jwt.sign({ _id: user._id }, secret, { expiresIn: '2h' });
             return { token, user };
