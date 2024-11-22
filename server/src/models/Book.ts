@@ -1,6 +1,6 @@
 import { Schema, type Document } from 'mongoose';
 
-export interface BookDocument extends Document {
+interface BookDocument extends Document {
   bookId: string;
   title: string;
   authors: string[];
@@ -37,4 +37,4 @@ const bookSchema = new Schema<BookDocument>({
   },
 });
 
-export default bookSchema;
+export  {bookSchema, type BookDocument};

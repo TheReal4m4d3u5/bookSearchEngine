@@ -16,7 +16,7 @@ const SignupForm = ({ }: { handleModalClose: () => void }) => {
     email: '',
     password: '',
   });
-  const [addUser, { error, data }] = useMutation(ADD_USER);
+  const [AddUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -30,12 +30,17 @@ const SignupForm = ({ }: { handleModalClose: () => void }) => {
   const handleFormSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    debugger
+
 
     try {
-      const { data } = await addUser({
-        variables: { input: { ...formState } },
+
+      console.log("formState: ", formState)
+
+      const { data } = await AddUser({
+        variables: { ...formState },
       });
+
+      debugger
 
       Auth.login(data.addUser.token);
     } catch (e) {
