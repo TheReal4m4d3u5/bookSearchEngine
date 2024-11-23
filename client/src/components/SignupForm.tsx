@@ -40,7 +40,12 @@ const SignupForm = ({ }: { handleModalClose: () => void }) => {
         variables: { ...formState },
       });
 
-      debugger
+      // const { data } = await AddUser({
+      //   variables: { input: { ...formState } },
+      // });
+      
+      
+
 
       Auth.login(data.addUser.token);
     } catch (e) {

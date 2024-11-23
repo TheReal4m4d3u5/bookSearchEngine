@@ -58,8 +58,6 @@ export const resolvers = {
           // Sign a token with the user's information
           const token = signToken(username, email, user._id);
 
-          console.log("token: " + token)
-
           // Return the token and the user
           return { token, user };
      

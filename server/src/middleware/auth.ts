@@ -6,7 +6,7 @@ interface JwtPayload {
   id: string;
 }
 
-console.log("process.env.JWT_SECRET: " + process.env.JWT_SECRET);
+
 
 const secret = process.env.JWT_SECRET || 'yourSecretKey';
 
