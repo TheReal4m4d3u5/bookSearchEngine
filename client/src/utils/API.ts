@@ -1,4 +1,3 @@
-import type { User } from '../models/User.js';
 import type { Book } from '../models/Book.js';
 
 // route to get logged in user's info (needs the token)
@@ -21,15 +20,15 @@ export const getMe = (token: string) => {
 //   });
 // };
 
-export const loginUser = (userData: User) => {
-  return fetch('/api/users/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
-};
+// export const loginUser = (userData: User) => {
+//   return fetch('/api/users/login', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(userData),
+//   });
+// };
 
 // save book data for a logged in user
 export const saveBook = (bookData: Book, token: string) => {
