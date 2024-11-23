@@ -31,20 +31,10 @@ const SignupForm = ({ }: { handleModalClose: () => void }) => {
     event.preventDefault();
 
 
-
     try {
-
-
       const { data } = await AddUser({
         variables: { ...formState },
       });
-
-      // const { data } = await AddUser({
-      //   variables: { input: { ...formState } },
-      // });
-      
-      
-
 
       Auth.login(data.addUser.token);
     } catch (e) {
