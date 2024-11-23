@@ -50,8 +50,6 @@ export const resolvers = {
     },
     addUser: async (_parent: any, { username, email, password }: AddUserArgs) => {
       // Create a new user with the provided username, email, and password
-
-
     
       const user = await User.create({username, email, password});
 
