@@ -34,7 +34,6 @@ const SignupForm = ({ }: { handleModalClose: () => void }) => {
 
     try {
 
-      console.log("formState: ", formState)
 
       const { data } = await AddUser({
         variables: { ...formState },
