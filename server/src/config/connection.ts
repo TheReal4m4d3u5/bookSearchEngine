@@ -2,6 +2,7 @@
 
 // const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/googlebooks';
 
+// //This does not return a promise and so it's failing 
 // const db = async (): Promise<typeof mongoose.connection> => {
 //   try {
 //     await mongoose.connect(MONGODB_URI);
@@ -14,6 +15,9 @@
 // };
 
 // export default db;
+
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 import dotenv from 'dotenv';
