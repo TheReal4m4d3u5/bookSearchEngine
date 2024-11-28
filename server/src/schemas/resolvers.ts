@@ -83,6 +83,17 @@ export const resolvers = {
       // throw new AuthenticationError('Input invalid');
     },
     saveBook: async (_: any, { input }: SaveBookArgs, context: Context) => {
+
+      console.log('Authenticated User:', context.user);
+      if (!context.user) {
+        throw new AuthenticationError('Not logged in');
+      }
+
+      const user = await User.findById('6747b9d1064c033cc60a64ec');
+      console.log(user);
+
+      console.log('Book Input:', input);
+
       if (context.user) {
         return User.findByIdAndUpdate(
           context.user._id,
