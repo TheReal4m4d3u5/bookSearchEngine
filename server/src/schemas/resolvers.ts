@@ -6,7 +6,13 @@ const secret = process.env.JWT_SECRET || 'yourSecretKey';
 
 interface Context {
   user?: {
-    _id: string;
+    data: {
+      _id: string;
+      username: string;
+      email: string;
+    };
+    iat: number;
+    exp: number;
   };
 }
 
@@ -47,7 +53,7 @@ export const resolvers = {
       }
 
       try {
-        const user = await User.findById(context.user._id).populate('savedBooks');
+        const user = await User.findById(context.user.data._id).populate('savedBooks');
         if (!user) {
           throw new Error('User not found');
         }
@@ -82,31 +88,40 @@ export const resolvers = {
 
       // throw new AuthenticationError('Input invalid');
     },
-    saveBook: async (_: any, { input }: SaveBookArgs, context: Context) => {
-
-      console.log('Authenticated User:', context.user);
-      if (!context.user) {
-        throw new AuthenticationError('Not logged in');
+    saveBook: async (_: any, { input }: { input: SaveBookArgs }, context: Context) => {
+      console.log("Authenticated User:", context.user);
+    
+      if (!context.user || !context.user.data) {
+        throw new AuthenticationError("Not logged in");
       }
-
-      const user = await User.findById('6747b9d1064c033cc60a64ec');
-      console.log(user);
-
-      console.log('Book Input:', input);
-
-      if (context.user) {
-        return User.findByIdAndUpdate(
-          context.user._id,
-          { $push: { savedBooks: input } },
-          { new: true }
-        ).populate('savedBooks');
+    
+      const userId = context.user.data._id; // Access the nested _id
+      console.log("User ID from context:", userId);
+      console.log("Book Input:", input);
+      try {
+        const updatedUser = await User.findByIdAndUpdate(
+          context.user.data._id,
+          {
+            $push: { savedBooks: input }, // Push the full Book object
+          },
+          { new: true } // Return the updated user
+        ).populate("savedBooks");
+    
+        if (!updatedUser) {
+          throw new Error("User update failed or user not found");
+        }
+    
+        console.log("Updated User:", updatedUser);
+        return updatedUser;
+      } catch (err) {
+        console.error("Error in saveBook resolver:", err);
+        throw new Error("Failed to save book");
       }
-      throw new AuthenticationError('Not logged in');
     },
     removeBook: async (_: any, { bookId }: any, context: Context) => {
       if (context.user) {
         return User.findByIdAndUpdate(
-          context.user._id,
+          context.user.data._id,
           { $pull: { savedBooks: { bookId } } },
           { new: true }
         );

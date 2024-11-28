@@ -10,7 +10,6 @@ export interface IUser extends Document {
   password: string;
   savedBooks: BookDocument[];
   isCorrectPassword(password: string): Promise<boolean>;
-  bookCount: number;
 }
 
 const userSchema = new Schema<IUser>(

@@ -4,7 +4,7 @@ export const GET_ME = gql`
     {
         me {
             _id
-            userasdfads
+            username
             email
             bookCount
             savedBooks {
@@ -13,7 +13,6 @@ export const GET_ME = gql`
                 description
                 title
                 image
-                link
             }
         }
     }`;

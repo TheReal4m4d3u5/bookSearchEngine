@@ -26,7 +26,6 @@ export const typeDefs = gql`
         description: String
         title: String
         image: String
-        link: String
     }
 
     type Auth {
@@ -40,7 +39,6 @@ export const typeDefs = gql`
         description: String
         title: String
         image: String
-        link: String
     }
 `;
 
