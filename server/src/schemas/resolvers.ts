@@ -45,8 +45,6 @@ const authenticate = (context: Context) => {
 export const resolvers = {
   Query: {
     me: async (_: any, __: any, context: Context) => {
-      console.log('Context:', context);
-      authenticate(context);
 
       if (!context.user) {
         throw new AuthenticationError('Not logged in');
@@ -89,6 +87,7 @@ export const resolvers = {
       // throw new AuthenticationError('Input invalid');
     },
     saveBook: async (_: any, { input }: { input: SaveBookArgs }, context: Context) => {
+      console.log("context: ", context);
       console.log("Authenticated User:", context.user);
     
       if (!context.user || !context.user.data) {
