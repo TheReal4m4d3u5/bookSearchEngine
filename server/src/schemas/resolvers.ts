@@ -89,6 +89,7 @@ export const resolvers = {
       // throw new AuthenticationError('Input invalid');
     },
     saveBook: async (_: any, { input }: { input: SaveBookArgs }, context: Context) => {
+      console.log("Context:", context); // Log the context to verify its structure
       console.log("Authenticated User:", context.user);
     
       if (!context.user || !context.user.data) {
