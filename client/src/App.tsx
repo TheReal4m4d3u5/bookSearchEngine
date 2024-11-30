@@ -32,7 +32,7 @@ const httpLink = createHttpLink({
 const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     const token = localStorage.getItem('id_token');
-    // return the headers to the context so httpLink can read them
+    console.log('Token from localStorage:', token); // Debugging
     return {
       headers: {
         ...headers,
@@ -41,6 +41,9 @@ const authLink = setContext((_, { headers }) => {
     };
   });
 
+  console.log('authLink:', authLink);
+console.log('httpLink:', httpLink);
+
 
 const client = new ApolloClient({
     link: authLink.concat(httpLink),
@@ -48,6 +51,10 @@ const client = new ApolloClient({
     cache: new InMemoryCache(),
 
 });
+
+
+
+console.log('Apollo Client Initialized:', client);
 
 const App = () => (
     <ApolloProvider client={client}>
