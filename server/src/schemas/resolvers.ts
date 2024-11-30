@@ -4,6 +4,9 @@ import { signToken } from '../utils/auth.js';
 import jwt from 'jsonwebtoken';
 const secret = process.env.JWT_SECRET || 'yourSecretKey';
 
+
+
+
 interface Context {
   user?: {
     data: {
@@ -34,16 +37,20 @@ interface SaveBookArgs {
     link: string;
   };
 }
+// interface UserArgs {
+//   username: string;
+// }
 
 
-const authenticate = (context: Context) => {
-  if (!context.user) {
-    throw new AuthenticationError('Not logged in');
-  }
-};
+// const authenticate = (context: Context) => {
+//   if (!context.user) {
+//     throw new AuthenticationError('Not logged in');
+//   }
+// };
 
 export const resolvers = {
   Query: {
+
     me: async (_: any, __: any, context: Context) => {
 
       if (!context.user) {
@@ -70,7 +77,8 @@ export const resolvers = {
         throw new AuthenticationError('Invalid credentials');
       }
 
-      const token = jwt.sign({ _id: user._id }, secret, { expiresIn: '2h' });
+    //  const token = jwt.sign({ _id: user._id }, secret, { expiresIn: '2h' });
+      const token = signToken(user.username, user.email, user._id);
       return { token, user };
     },
     addUser: async (_parent: any, { username, email, password }: AddUserArgs) => {
@@ -87,7 +95,7 @@ export const resolvers = {
       // throw new AuthenticationError('Input invalid');
     },
     saveBook: async (_: any, { input }: { input: SaveBookArgs }, context: Context) => {
-      console.log("context: ", context);
+      // console.log("context: ", context);
       console.log("Authenticated User:", context.user);
     
       if (!context.user || !context.user.data) {

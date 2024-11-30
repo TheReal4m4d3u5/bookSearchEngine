@@ -1,7 +1,7 @@
 
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 
 
 import Auth from '../utils/auth';
@@ -9,6 +9,8 @@ import { removeBookId } from '../utils/localStorage';
 import type { User } from '../models/User';
 import type { Book } from '../models/Book';
 
+
+import { REMOVE_BOOK } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
 
 
@@ -17,6 +19,8 @@ const SavedBooks = () => {
 
 
   const { loading, data } = useQuery(GET_ME);
+  const [removeBook] = useMutation(REMOVE_BOOK);
+  //const [removeBook] = useMutation(REMOVE_BOOK, { refetchQueries: 'GET_ME'});
 
   const userData: User = data?.me || {};
 
@@ -30,15 +34,16 @@ const SavedBooks = () => {
     }
 
     try {
-      // const response = await deleteBook(bookId, token);
-
-      // if (!response.ok) {
-      //   throw new Error('something went wrong!');
-      // }
+      const response = await removeBook({ variables: { bookId }});
+      console.log("response: ", response);
+      if (!response) {
+        throw new Error('something went wrong!');
+      }
 
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
+      console.log("err: ", err);
       console.error(err);
     }
   };

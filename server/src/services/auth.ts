@@ -12,17 +12,20 @@ interface JwtPayload {
 
 export const authenticateToken = ({req}: {req: Request}) => {
   const authHeader = req.headers.authorization;
+  console.log("Incoming Auth Header: ", authHeader)
 
   if (authHeader) {
-    const token = authHeader.split(' ')[1];
-
+    const token = authHeader.split(' ')[1].trim();
+    console.log("Incoming Token: ", token)
     const secretKey = process.env.JWT_SECRET_KEY || '';
+    console.log("Key: ", secretKey)
 
-    jwt.verify(token, secretKey, (err, user) => {
+    jwt.verify(token, secretKey, { maxAge: '1hr' }, (err, user) => {
       if (err) {
+        console.log("Verify Error: ", err);
         return req;
       }
-
+      console.log("User Obj: ", user);
       return req.user = user as JwtPayload;
   
     });

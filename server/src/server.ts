@@ -33,12 +33,18 @@ const startApolloServer = async () => {
   app.use(
     "/graphql",
     expressMiddleware(server, {
+      context: authenticateToken as any
+      },
+  ))
+    /*
+    expressMiddleware(server, {
       context: async ({ req }) => {
         const context = await authenticateToken({ req });
+        console.log("Incoming Context Obj: ", context);
         return context; // Return the context with the user
       },
-    })
-  );
+    }) */
+  //);
   
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(process.cwd(),'client','dist')));

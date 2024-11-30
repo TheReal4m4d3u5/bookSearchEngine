@@ -1,4 +1,4 @@
-import type { Book } from '../models/Book.js';
+//import type { Book } from '../models/Book.js';
 
 // route to get logged in user's info (needs the token)
 export const getMe = (token: string) => {
@@ -31,26 +31,26 @@ export const getMe = (token: string) => {
 // };
 
 // save book data for a logged in user
-export const saveBook = (bookData: Book, token: string) => {
-  return fetch('/api/users', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(bookData),
-  });
-};
+// export const saveBook = (bookData: Book, token: string) => {
+//   return fetch('/api/users', {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       authorization: `Bearer ${token}`,
+//     },
+//     body: JSON.stringify(bookData),
+//   });
+// };
 
 // remove saved book data for a logged in user
-export const deleteBook = (bookId: string, token: string) => {
-  return fetch(`/api/users/books/${bookId}`, {
-    method: 'DELETE',
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
-};
+// export const deleteBook = (bookId: string, token: string) => {
+//   return fetch(`/api/users/books/${bookId}`, {
+//     method: 'DELETE',
+//     headers: {
+//       authorization: `Bearer ${token}`,
+//     },
+//   });
+// };
 
 // make a search to google books api
 // https://www.googleapis.com/books/v1/volumes?q=harry+potter
