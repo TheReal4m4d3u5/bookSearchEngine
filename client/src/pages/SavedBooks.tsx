@@ -19,7 +19,8 @@ const SavedBooks = () => {
 
 
   const { loading, data } = useQuery(GET_ME);
-  const [removeBook] = useMutation(REMOVE_BOOK);
+  const [removeBook] = useMutation(REMOVE_BOOK, {refetchQueries: [{ query: GET_ME }],});
+  
   //const [removeBook] = useMutation(REMOVE_BOOK, { refetchQueries: 'GET_ME'});
 
   const userData: User = data?.me || {};
@@ -35,7 +36,7 @@ const SavedBooks = () => {
 
     try {
       const response = await removeBook({ variables: { bookId }});
-      console.log("response: ", response);
+
       if (!response) {
         throw new Error('something went wrong!');
       }
@@ -43,8 +44,7 @@ const SavedBooks = () => {
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
-      console.log("err: ", err);
-      console.error(err);
+      console.error("err: ", err);
     }
   };
 
@@ -75,8 +75,8 @@ const SavedBooks = () => {
         <Row>
           {userData?.savedBooks?.map((book: Book) => {
             return (
-              <Col md='4'>
-                <Card key={book.bookId} border='dark'>
+              <Col key={book.bookId} md='4'>
+                <Card border='dark'>
                   {book.image ? (
                     <Card.Img
                       src={book.image}

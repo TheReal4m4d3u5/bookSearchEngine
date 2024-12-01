@@ -22,10 +22,9 @@ export const authenticateToken = ({req}: {req: Request}) => {
 
     jwt.verify(token, secretKey, { maxAge: '1hr' }, (err, user) => {
       if (err) {
-        console.log("Verify Error: ", err);
+        console.error("Verify Error: ", err);
         return req;
       }
-      console.log("User Obj: ", user);
       return req.user = user as JwtPayload;
   
     });
