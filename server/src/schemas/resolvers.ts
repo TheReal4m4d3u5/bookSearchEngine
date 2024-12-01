@@ -95,14 +95,11 @@ export const resolvers = {
       // throw new AuthenticationError('Input invalid');
     },
     saveBook: async (_: any, { input }: { input: SaveBookArgs }, context: Context) => {
-      // console.log("context: ", context);
-
     
       if (!context.user || !context.user.data) {
         throw new AuthenticationError("Not logged in");
       }
-    
-      const userId = context.user.data._id; // Access the nested _id
+
 
       try {
         const updatedUser = await User.findByIdAndUpdate(
