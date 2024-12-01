@@ -7,13 +7,11 @@ dotenv.config();
 export const authenticateToken = async ({ req }: any) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
-    console.log("Authorization header not found.");
     return {}; // Return empty context
   }
 
   const token = authHeader.split(' ')[1]; // Extract token after "Bearer"
   if (!token) {
-    console.log("Token missing from Authorization header.");
     return {}; // Return empty context
   }
 
@@ -24,7 +22,6 @@ export const authenticateToken = async ({ req }: any) => {
 
   try {
     const decodedUser = jwt.verify(token, secret);
-    console.log("Decoded User:", decodedUser);
     return { user: decodedUser }; // Attach user to context
   } catch (err) {
     console.error("JWT verification failed:", err);

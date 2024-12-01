@@ -96,15 +96,14 @@ export const resolvers = {
     },
     saveBook: async (_: any, { input }: { input: SaveBookArgs }, context: Context) => {
       // console.log("context: ", context);
-      console.log("Authenticated User:", context.user);
+
     
       if (!context.user || !context.user.data) {
         throw new AuthenticationError("Not logged in");
       }
     
       const userId = context.user.data._id; // Access the nested _id
-      console.log("User ID from context:", userId);
-      console.log("Book Input:", input);
+
       try {
         const updatedUser = await User.findByIdAndUpdate(
           context.user.data._id,
@@ -117,8 +116,7 @@ export const resolvers = {
         if (!updatedUser) {
           throw new Error("User update failed or user not found");
         }
-    
-        console.log("Updated User:", updatedUser);
+
         return updatedUser;
       } catch (err) {
         console.error("Error in saveBook resolver:", err);
